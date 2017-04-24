@@ -16,6 +16,7 @@ module.exports = (db) => {
       visits INT NOT NULL DEFAULT 0,
       timestamp TIMESTAMP
     );`)
+  
     .then(() => {
       // Create clicks table
       return db.queryAsync(`
@@ -28,6 +29,17 @@ module.exports = (db) => {
   /************************************************************/
   /*          Add additional schema queries here              */
   /************************************************************/
+    
+    .then(() => {
+      // Create clicks table
+      return db.queryAsync(`
+        CREATE TABLE IF NOT EXISTS users (
+          id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+          username varChar(20) UNIQUE,
+          password varChar(20), 
+          timestamp TIMESTAMP
+        );`);
+    })
 
     .error(err => {
       console.log(err);
