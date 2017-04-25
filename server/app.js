@@ -4,6 +4,7 @@ const utils = require('./lib/hashUtils');
 const partials = require('express-partials');
 const bodyParser = require('body-parser');
 const Auth = require('./middleware/auth');
+const cookieParse = require('./middleware/cookieParser')
 const models = require('./models');
 const app = express();
 
@@ -16,6 +17,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files from ../public directory
 app.use(express.static(path.join(__dirname, '../public')));
+
+// middlewere
+// app.use(cookieParse);
+// app.use(Auth);
 
 app.get('/', 
 (req, res) => {

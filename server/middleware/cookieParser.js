@@ -1,27 +1,21 @@
-const parseCookies = (req, res, next) => {
+module.exports = (req, res, next) => {
 
-  var dough = req.headers.Cookies;
-  // if no cookies return empty object
+  var dough = req.headers.cookie;
+
+  // console.log("DOUGH", dough)
+
   if ( !dough ){
-    req.cookies = {};
-  }
-  // parse cookies back to Cookie object
-  else {
+    res.cookies = {};
 
+  } else {
+    // console.log("COOKING")
     var cookies = {};
     dough.split(';').forEach(function(cookieball){
-
-      var cut = cookieball.getIndexOf('=');
-
-      // var key = cookieball.match('//');
-      // var val = cookieball.match('//');
-
-      cookies[ cookieball.slice(0,cut) ] = cookieball.slice(match+1);
+      var pieces = cookieball.split('=');
+      cookies[ pieces[0].trim() ] = pieces[1];
     });
-    req.cookies = cookies;
-    console.log("COOKIES = ",req.cookies)
-
+    res.cookies = cookies;
   }
+  // console.log("outbound",req.cookies)
+  next();
 };
-
-module.exports = parseCookies;
