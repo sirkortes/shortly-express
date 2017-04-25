@@ -31,7 +31,7 @@ module.exports = (db) => {
   /************************************************************/
     
     .then(() => {
-      // Create clicks table
+      // Create users table
       return db.queryAsync(`
         CREATE TABLE IF NOT EXISTS users (
           id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -40,6 +40,17 @@ module.exports = (db) => {
           timestamp TIMESTAMP
         );`);
     })
+
+.then(() => {
+      // Create sessions table
+      return db.queryAsync(`
+        CREATE TABLE IF NOT EXISTS sessions (
+          id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+          user_id INT, 
+          hash varChar(64),
+          timestamp TIMESTAMP
+        );`);
+    })    
 
     .error(err => {
       console.log(err);
