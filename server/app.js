@@ -79,18 +79,28 @@ app.post('/links',
 /************************************************************/
 
 app.post('/signup', (req, res, next) => {
-
-  var url = req.body.url;
   models.User.create(req.body, function(data){
-
     if ( data.errno ){
       res.redirect('/signup');
     } else {
       res.redirect('/');
     }
-
   });
 });
+
+
+app.post('/login', (req, res, next) => {
+  models.User.login(req.body, function(data){
+    if ( data && data.id ){
+      res.redirect('/');
+    } else {
+      res.redirect('/login');
+    }
+  });
+});
+
+
+
 
 
 /************************************************************/
