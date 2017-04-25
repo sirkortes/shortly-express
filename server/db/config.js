@@ -36,7 +36,7 @@ module.exports = (db) => {
         CREATE TABLE IF NOT EXISTS users (
           id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           username varChar(20) UNIQUE,
-          password varChar(20), 
+          password varChar(64), 
           timestamp TIMESTAMP
         );`);
     })

@@ -5,7 +5,6 @@ const partials = require('express-partials');
 const bodyParser = require('body-parser');
 const Auth = require('./middleware/auth');
 const models = require('./models');
-
 const app = express();
 
 app.set('views', `${__dirname}/views`);
@@ -79,6 +78,19 @@ app.post('/links',
 // Write your authentication routes here
 /************************************************************/
 
+app.post('/signup', (req, res, next) => {
+
+  var url = req.body.url;
+  models.User.create(req.body, function(data){
+
+    if ( data.errno ){
+      res.redirect('/signup');
+    } else {
+      res.redirect('/');
+    }
+
+  });
+});
 
 
 /************************************************************/
